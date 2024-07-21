@@ -1,0 +1,18 @@
+setwd("/Users/huangweiting/co ding/INTRODUCTION TO SCIENTIFIC COMPUTING SOFTWARE /W14")
+install.packages("descriptr")
+install.packages("olsrr")
+library(descriptr)
+library(olsrr, warn.conflicts = FALSE)
+library(Hmisc,warn.conflicts = FALSE)
+library(MASS,warn.conflicts = FALSE)
+data("mtcars",package = "datasets")
+dataset <- mtcars
+#View(dataset)
+rcorr(as.matrix(dataset),type=c("pearson"))
+model <-lm(mpg ~ cyl+disp+hp+drat+wt+qsec+as.factor(vs)+as.factor(am)+gear+carb, data=dataset)
+
+ols_regress(model)
+ols_coll_diag(model)
+ols_step_forward_p(model, penter=0.05,details=TRUE)
+ols_step_backward_p(model, prem=0.1,details=TRUE)
+ols_step_both_p(model, penter=0.05,prem=0.1,details=TRUE)
